@@ -4,7 +4,7 @@ import mongoose from 'mongoose'
 import cors from 'cors'
 const app = express()
 try {
-  // connect db atlas
+  // connect db atlas ket noi db atlas
   ;(async () => {
     await mongoose.connect(
       `mongodb+srv://${process.env.DATABASE}:${process.env.PASSWORD}@cluster0.xbd5gx2.mongodb.net/app_mobile`
