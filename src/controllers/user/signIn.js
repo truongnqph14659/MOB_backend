@@ -18,4 +18,5 @@ export const loginUser = async (req, res) => {
     res.status(401).json('dang nhap that bai, thử lại sau!')
   }
 }
+// commit to check bcrypt
 export default loginUser
