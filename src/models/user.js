@@ -5,6 +5,7 @@ const userSchema = new mongoose.Schema({
   },
   phone: {
     type: String,
+    minlength: 10,
   },
   email: {
     type: String,
@@ -22,13 +23,6 @@ const userSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-  },
-  codeverify: {
-    type: Number,
-  },
-  status: {
-    type: String,
-    default: 'pending',
   },
   role: {
     type: Number,
