@@ -20,4 +20,21 @@ export const loginUser = async (req, res) => {
     })
   }
 }
-export default loginUser
+export const loginHost = async (req, res) => {
+  try {
+    const checkEmail = await user.findOne({ email: req.body.email })
+    if (!checkEmail) return res.status(404).json('tài khoản chưa đăng ký!')
+    const checkPass = bcyrpt.compareSync(req.body.password, checkEmail.password)
+    if (!checkPass) return res.status(400).json('sai mật khẩu!')
+    res.status(200).json({
+      messege: 'true',
+      name: checkEmail.name,
+      image: checkEmail.image,
+      role: 'host',
+    })
+  } catch (error) {
+    res.status(401).json({
+      messege: 'false',
+    })
+  }
+}
