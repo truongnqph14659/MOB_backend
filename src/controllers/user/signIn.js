@@ -7,7 +7,7 @@ export const loginUser = async (req, res) => {
     const checkPass = bcyrpt.compareSync(req.body.password, checkEmail.password)
     if (!checkPass) return res.status(400).json('sai mật khẩu!')
     res.status(200).json({
-      messege: 'welcome to our app!',
+      messege: 'true',
       name: checkEmail.name,
       email: checkEmail.email,
       image: checkEmail.image,
@@ -15,8 +15,9 @@ export const loginUser = async (req, res) => {
       address: checkEmail.address,
     })
   } catch (error) {
-    res.status(401).json('dang nhap that bai, thử lại sau!')
+    res.status(401).json({
+      messege: 'false',
+    })
   }
 }
-// commit to check bcrypt
 export default loginUser
