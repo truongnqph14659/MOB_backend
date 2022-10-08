@@ -12,3 +12,15 @@ export const getProduct = async (req,res)=>{
         })
     }
 }
+
+export const getAll = async (req,res)=>{
+    try {
+        const data = await product.find()
+        res.json(data)
+    } catch (error) {
+        res.status(400).json({
+            // error
+            message:error
+        })
+    }
+}
