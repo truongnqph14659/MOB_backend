@@ -21,7 +21,7 @@ try {
 } catch (error) {
   console.log('ket noi that bai')
 }
-
+// test ignore node modules
 app.use('/api', Cate)
 app.use('/api', User)
 app.use('/api', Location)
