@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 import cors from 'cors'
 import Cate from './router/routercate'
 import User from './router/routeruser'
+import Location from './router/location'
 const app = express()
 
 app.use(express.json())
@@ -23,6 +24,7 @@ try {
 
 app.use('/api', Cate)
 app.use('/api', User)
+app.use('/api', Location)
 app.listen(process.env.PORT, () => {
   console.log(`connected port ${process.env.PORT}`)
 })
