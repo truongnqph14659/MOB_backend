@@ -6,6 +6,8 @@ import Cate from './router/routercate'
 import User from './router/routeruser'
 import Location from './router/location'
 import Product from './router/routeproduct'
+import Message from './router/routermessage'
+import socket from 'socket.io'
 const app = express()
 
 app.use(express.json())
@@ -27,6 +29,13 @@ app.use('/api', Cate)
 app.use('/api', User)
 app.use('/api', Location)
 app.use('/api', Product)
-app.listen(process.env.PORT, () => {
+app.use('/api/Message', Message)
+const server = app.listen(process.env.PORT, () => {
   console.log(`connected port ${process.env.PORT}`)
+})
+const io = socket(server,{
+  cors:{
+    origin: "http://localhost:3000",
+    credentials: true,
+  }
 })
