@@ -15,7 +15,7 @@ export const getCategory = async (req,res)=>{
 export const findCategory = async (req,res)=>{
     try {
         const data = await category.find({_id: req.params.id})
-        const product = await products.find({category:data}).populate({path: 'category',model:'Category',select:'name'})
+        const product = await products.find({category:data}).populate({path: 'category',model:'Category',select:'name'}).select('-category')
         res.json({
             data,
             product
