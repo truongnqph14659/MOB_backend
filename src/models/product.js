@@ -1,4 +1,4 @@
-import mongoose, { ObjectId, Schema } from "mongoose";
+import mongoose, { ObjectId, Schema } from 'mongoose'
 
 const productSchema = mongoose.Schema(
   {
@@ -6,41 +6,35 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    images: [],
     price: {
       type: Number,
-      required: true,
     },
     star: {
       type: Number,
     },
-    area: {
+    supplement: Array,
+    nameLocation: {
       type: String,
     },
     location: {
-      type: String,
-    },
-    long: {
-      type: String,
-    },
-    Lat: {
-      type: String,
-    },
-    timeOrder: {
-      type: Date,
-    },
-    paymentTime: {
-      type: Date,
+      type: {
+        type: String,
+        required: true,
+      },
+      coordinates: [],
     },
     category: {
       type: Schema.Types.ObjectId,
       ref: 'Category',
     },
     user: {
-        type: Schema.Types.ObjectId,
-        ref: 'user'
-    }
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+    },
+    sleepingPlaces: Array,
   },
   { timestamps: true }
-);
-
-export default mongoose.model("Product", productSchema);
+)
+productSchema.index({ location: '2dsphere' })
+export default mongoose.model('Product', productSchema)

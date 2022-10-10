@@ -4,7 +4,6 @@ import mongoose from 'mongoose'
 import cors from 'cors'
 import Cate from './router/routercate'
 import User from './router/routeruser'
-import Location from './router/location'
 import Product from './router/routeproduct'
 import Message from './router/routermessage'
 import socket from 'socket.io'
@@ -27,15 +26,14 @@ try {
 // test ignore node modules
 app.use('/api', Cate)
 app.use('/api', User)
-app.use('/api', Location)
 app.use('/api', Product)
 app.use('/api/Message', Message)
 const server = app.listen(process.env.PORT, () => {
   console.log(`connected port ${process.env.PORT}`)
 })
-const io = socket(server,{
-  cors:{
-    origin: "http://localhost:3000",
+const io = socket(server, {
+  cors: {
+    origin: 'http://localhost:3000',
     credentials: true,
-  }
+  },
 })
