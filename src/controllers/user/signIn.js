@@ -27,6 +27,7 @@ export const loginHost = async (req, res) => {
     const checkPass = bcyrpt.compareSync(req.body.password, checkEmail.password)
     if (!checkPass) return res.status(400).json('sai mật khẩu!')
     res.status(200).json({
+      id: checkEmail._id,
       messege: 'true',
       name: checkEmail.name,
       image: checkEmail.image,

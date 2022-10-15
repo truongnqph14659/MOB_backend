@@ -55,8 +55,9 @@ export const createHost = async (req, res) => {
         role: 'host',
       })
   } catch (error) {
-    res.status(400).json({
+    res.status(401).json({
       messege: 'false',
+      notice: 'đăng ký thất bại!',
     })
   }
 }
