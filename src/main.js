@@ -6,6 +6,8 @@ import Cate from './router/routercate'
 import User from './router/routeruser'
 import Product from './router/routeproduct'
 import Message from './router/routermessage'
+import sleepingPlaces from './router/routersleeping'
+import Suplements from './router/routersuplement'
 import socket from 'socket.io'
 const app = express()
 
@@ -28,6 +30,8 @@ app.use('/api', Cate)
 app.use('/api', User)
 app.use('/api', Product)
 app.use('/api/Message', Message)
+app.use('/api', sleepingPlaces)
+app.use('/api', Suplements)
 const server = app.listen(process.env.PORT, () => {
   console.log(`connected port ${process.env.PORT}`)
 })
