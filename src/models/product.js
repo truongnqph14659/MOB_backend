@@ -10,9 +10,6 @@ const productSchema = mongoose.Schema(
     price: {
       type: Number,
     },
-    star: {
-      type: Number,
-    },
     supplement: Array,
     nameLocation: {
       type: String,

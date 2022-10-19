@@ -1,7 +1,6 @@
 import user from '../../models/user'
 const bcyrpt = require('bcrypt')
 export const createUser = async (req, res) => {
-  console.log(req.body)
   try {
     const checkEmail = await user.findOne({ email: req.body.email })
     if (checkEmail) {
@@ -30,7 +29,6 @@ export const createUser = async (req, res) => {
   }
 }
 export const createHost = async (req, res) => {
-  console.log(req.body)
   try {
     const checkEmail = await user.findOne({ email: req.body.email })
     if (checkEmail) {
