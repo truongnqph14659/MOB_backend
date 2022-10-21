@@ -33,7 +33,17 @@ const server = app.listen(process.env.PORT, () => {
 })
 const io = socket(server, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin: 'http://localhost:4200',
     credentials: true,
   },
 })
+let activeUser = new Map()
+io.on('connection', (socket) => {
+    socket.on('join', (id) => {
+        activeUser.set(id,socket.id)
+    });
+    socket.on('message', (data) => {
+        const room= activeUser.get(data.room)
+        io.to(room).emit('new message', {sender: data.sender, message: data.message});
+    });
+}); 
