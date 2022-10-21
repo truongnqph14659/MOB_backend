@@ -13,6 +13,9 @@ const messageSchema = mongoose.Schema(
             type:Schema.Types.ObjectId,
             ref:"user",
             required:true
+        },
+        time_send:{
+            type:String
         }
     },
     {
