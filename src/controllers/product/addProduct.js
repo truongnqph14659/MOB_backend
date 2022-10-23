@@ -5,7 +5,6 @@ export const addProduct = async (req, res) => {
       name: req.body.name,
       images: req.body.images,
       price: req.body.price,
-      star: parseFloat(req.body.star),
       supplement: req.body.supplement,
       nameLocation: req.body.nameLocation,
       location: {
@@ -16,6 +15,8 @@ export const addProduct = async (req, res) => {
         ],
       },
       category: req.body.category,
+      opening: req.body.opening,
+      ending: req.body.ending,
       user: req.body.user,
       sleepingPlaces: req.body.sleepingPlaces,
     }

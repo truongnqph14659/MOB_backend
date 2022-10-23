@@ -30,6 +30,8 @@ const productSchema = mongoose.Schema(
       ref: 'user',
     },
     sleepingPlaces: Array,
+    opening: String,
+    ending: String,
   },
   { timestamps: true }
 )
