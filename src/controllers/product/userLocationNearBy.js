@@ -18,9 +18,12 @@ export const nearByUserLoca = async (req, res) => {
         },
       },
     ])
+    const filterCategory = data.filter(
+      (item) => item.category == req.body.category
+    )
     res.status(200).json({
       messege: 'true',
-      dataMaps: data.map((item) => {
+      dataMaps: filterCategory.map((item) => {
         return {
           data: item,
           distance: Math.ceil(item.calculated / 1000),
