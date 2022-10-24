@@ -8,7 +8,9 @@ import Product from './router/routeproduct'
 import Message from './router/routermessage'
 import sleepingPlaces from './router/routersleeping'
 import Suplements from './router/routersuplement'
+import bathRoom from './router/routerbathroom'
 import socket from 'socket.io'
+
 const app = express()
 
 app.use(express.json())
@@ -32,6 +34,7 @@ app.use('/api', Product)
 app.use('/api/Message', Message)
 app.use('/api', sleepingPlaces)
 app.use('/api', Suplements)
+app.use('/api', bathRoom)
 const server = app.listen(process.env.PORT, () => {
   console.log(`connected port ${process.env.PORT}`)
 })
@@ -43,11 +46,14 @@ const io = socket(server, {
 })
 let activeUser = new Map()
 io.on('connection', (socket) => {
-    socket.on('join', (id) => {
-        activeUser.set(id,socket.id)
-    });
-    socket.on('message', (data) => {
-        const room= activeUser.get(data.room)
-        io.to(room).emit('new message', {sender: data.sender, message: data.message});
-    });
-}); 
+  socket.on('join', (id) => {
+    activeUser.set(id, socket.id)
+  })
+  socket.on('message', (data) => {
+    const room = activeUser.get(data.room)
+    io.to(room).emit('new message', {
+      sender: data.sender,
+      message: data.message,
+    })
+  })
+})

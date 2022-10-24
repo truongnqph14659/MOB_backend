@@ -29,7 +29,20 @@ const productSchema = mongoose.Schema(
       type: Schema.Types.ObjectId,
       ref: 'user',
     },
+    legal: {
+      type: String,
+    },
+    content: {
+      type: String,
+    },
+    yte: {
+      type: Boolean,
+    },
+    bathrooms: Array,
+    limitPerson: Number,
     sleepingPlaces: Array,
+    opening: String,
+    ending: String,
   },
   { timestamps: true }
 )
