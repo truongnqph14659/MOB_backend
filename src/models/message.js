@@ -19,6 +19,9 @@ const messageSchema = mongoose.Schema(
         },
         time_send:{
             type:String
+        },
+        status:{
+            type:Boolean
         }
     },
     {

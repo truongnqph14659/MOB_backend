@@ -56,4 +56,16 @@ io.on('connection', (socket) => {
       message: data.message,
     })
   })
+  socket.on('statusMesage', (data) => {
+    const room =activeUser.get(data.sendTo);
+    io.to(room).emit('statusMsg', {
+      data
+    })
+  })  
+  socket.on('sendNotification', (data) => {
+    const room =activeUser.get(data.sendTo);
+     io.to(room).emit('Notification', {
+      data
+    })
+  }) 
 })
