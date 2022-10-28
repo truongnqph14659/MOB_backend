@@ -14,8 +14,14 @@ const messageSchema = mongoose.Schema(
             ref:"user",
             required:true
         },
+        sendTo:{
+            type:String
+        },
         time_send:{
             type:String
+        },
+        status:{
+            type:Boolean
         }
     },
     {

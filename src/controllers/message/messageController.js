@@ -5,12 +5,13 @@ export const addMessage = async (req,res) => {
   try {
     const { from, to, message } = req.body;
     const time=new Date(Date.now()).getHours() +":"+new Date(Date.now()).getMinutes()
-    console.log(from,to,message);
     const data = await Message.create({
       message: { text: message },
       user: [from, to],
       send: from,
-      time_send:time
+      time_send:time,
+      sendTo:to,
+      status:false
     });
     if (data) return res.json({ msg: "Message added successfully.",data});
     else return res.json({ msg: "Failed to add message to the database" });
@@ -46,4 +47,11 @@ export const findUser = async (req,res)=>{
           error
       })
   }
+}
+
+export const statusMessage = (req,res)=>{
+  req.body.forEach(async(element) => {
+   await Message.findOneAndUpdate({_id:`${element._id}`},{$set:{status:true}},{new:true})
+  });
+  res.json(req.body)
 }
