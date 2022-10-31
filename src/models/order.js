@@ -2,6 +2,9 @@ import mongoose, { Schema } from 'mongoose'
 
 const orderSchema = mongoose.Schema(
   {
+    IdOder: {
+      type: String,
+    },
     IdHost: {
       type: Schema.Types.ObjectId,
       ref: 'user',
@@ -25,6 +28,10 @@ const orderSchema = mongoose.Schema(
     },
     banking: {
       type: Boolean,
+    },
+    seem: {
+      type: Boolean,
+      default: false,
     },
     status: {
       type: String,
