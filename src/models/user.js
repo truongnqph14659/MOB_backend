@@ -23,6 +23,9 @@ const userSchema = new mongoose.Schema({
   image: {
     type: String,
   },
+  status:{
+    type:String
+  },
   role: {
     type: Number,
     default: 0,
