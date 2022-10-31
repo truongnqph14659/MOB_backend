@@ -68,4 +68,29 @@ io.on('connection', (socket) => {
       data
     })
   }) 
+  socket.on('statusUser', (data) => {
+    for (const item of activeUser.entries()) {
+      if(item[0] !== data._id){
+        io.to(item[1]).emit('activeStatus', {
+          data
+        })
+      }
+    }
+  })
+  socket.on('disconnectUser', (data) => {
+    for (const item of activeUser.entries()) {
+      if(item[0] !== data._id){
+        io.to(item[1]).emit('activeStatus', {
+          data
+        })
+      }
+    }
+  })
+  socket.on("disconnect", () => {
+    for (const item of activeUser.entries()) {
+      if(item[1] == socket.id){
+        activeUser.delete(item[0]);
+      }
+    }
+  });  
 })
