@@ -2,7 +2,6 @@ import bathroom from '../../models/bathroom'
 export const getBathRoom = async (req, res) => {
   try {
     const data = await bathroom.find()
-    console.log(data)
     res.status(200).json({
       messege: 'true',
       databaths: data,

@@ -9,6 +9,7 @@ import Message from './router/routermessage'
 import sleepingPlaces from './router/routersleeping'
 import Suplements from './router/routersuplement'
 import bathRoom from './router/routerbathroom'
+import Order from './router/routerorder'
 import socket from 'socket.io'
 
 const app = express()
@@ -35,6 +36,7 @@ app.use('/api/Message', Message)
 app.use('/api', sleepingPlaces)
 app.use('/api', Suplements)
 app.use('/api', bathRoom)
+app.use('/api', Order)
 const server = app.listen(process.env.PORT, () => {
   console.log(`connected port ${process.env.PORT}`)
 })
@@ -45,7 +47,40 @@ const io = socket(server, {
   },
 })
 let activeUser = new Map()
+let activeUserOrder = new Map()
 io.on('connection', (socket) => {
+  socket.on('hostIp', (id) => {
+    activeUserOrder.set(id, socket.id)
+  })
+  socket.on('confirmOrder', (data) => {
+    const room = activeUserOrder.get(data.idUser)
+    io.to(room).emit('confirmres', {
+      IdOder: data.idOder,
+      status: data.status,
+      IdUser: data.idUser,
+      IdHost: data.idHost,
+      IdPro: data.idProduct,
+    })
+  })
+  socket.on('cancelOrder', (data) => {
+    const room = activeUserOrder.get(data.IdHost)
+    io.to(room).emit('cancelres', {
+      IdOder: data.idOder,
+      status: data.status,
+      IdUser: data.idUser,
+      IdHost: data.idHost,
+      IdPro: data.idProduct,
+    })
+  })
+
+  socket.on('sendorder', (data) => {
+    const room = activeUserOrder.get(data.IdHost)
+    io.to(room).emit('orderresponse', {
+      idUser: data.IdUser,
+      IdOder: data.IdOder,
+      IdHost: data.IdHost,
+    })
+  })
   socket.on('join', (id) => {
     activeUser.set(id, socket.id)
   })
@@ -57,16 +92,17 @@ io.on('connection', (socket) => {
     })
   })
   socket.on('statusMesage', (data) => {
-    const room =activeUser.get(data.sendTo);
+    const room = activeUser.get(data.sendTo)
     io.to(room).emit('statusMsg', {
-      data
+      data,
     })
-  })  
+  })
   socket.on('sendNotification', (data) => {
-    const room =activeUser.get(data.sendTo);
-     io.to(room).emit('Notification', {
-      data
+    const room = activeUser.get(data.sendTo)
+    io.to(room).emit('Notification', {
+      data,
     })
+  })
   }) 
   socket.on('statusUser', (data) => {
     for (const item of activeUser.entries()) {
