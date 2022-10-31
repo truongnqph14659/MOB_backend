@@ -15,6 +15,7 @@ export const createUser = async (req, res) => {
       address: '',
       image: '',
       idcard: '',
+      status:''
     }
     const resault = await new user(dataUser).save()
     if (resault)
@@ -42,6 +43,7 @@ export const createHost = async (req, res) => {
       password: passHass,
       address: req.body.address,
       image: req.body.image,
+      status:"false",
       idcard: req.body.idcard,
       role: 1,
     }

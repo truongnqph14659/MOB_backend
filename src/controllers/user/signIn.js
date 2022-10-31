@@ -34,6 +34,7 @@ export const loginHost = async (req, res) => {
       name: checkEmail.name,
       image: checkEmail.image,
       role: 'host',
+      status:checkEmail.status
     })
   } catch (error) {
     res.status(401).json({
@@ -58,4 +59,15 @@ export const loginAdmin = async (req, res) => {
       messege: 'false',
     })
   }
+}
+
+export const statusUser=async(req,res)=>{
+  try {
+    const data = await user.findOneAndUpdate({_id:req.params.id},req.body,{new:true})
+    res.json(data)
+} catch (error) {
+    res.status(400).json({
+        error
+    })
+}
 }
