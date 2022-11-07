@@ -107,6 +107,24 @@ export const updateStatus = async (req, res) => {
     })
   }
 }
+export const updateStatusDone = async (req, res) => {
+  try {
+    const dataUpdate = await order.findOneAndUpdate(
+      { IdOder: req.body.id },
+      { status: 'done' },
+      { new: true }
+    )
+    console.log(dataUpdate)
+    res.status(200).json({
+      messege: true,
+      data: dataUpdate,
+    })
+  } catch (error) {
+    res.status(401).json({
+      messege: false,
+    })
+  }
+}
 export const orderNotSeem = async (req, res) => {
   try {
     const listOrderNotSeem = await order.find({ IdHost: req.body.id })
@@ -117,6 +135,28 @@ export const orderNotSeem = async (req, res) => {
   } catch (error) {
     res.status(401).json({
       messege: false,
+    })
+  }
+}
+
+export const orderNotices = async (req, res) => {
+  try {
+    const inforUser = await user
+      .findById({ _id: req.body.idUser })
+      .select(['-password', '-role', '-idcard', '-phone', '-_id'])
+    const listOrderNotSeem = await order
+      .find({ IdUser: req.body.idUser })
+      .populate({ path: 'IdPro', model: 'Product', select: ['name', 'images'] })
+      .populate({ path: 'IdHost', model: 'user', select: 'name' })
+      .select(['-seem', '-_id', '-updatedAt', '-IdUser'])
+    res.status(200).json({
+      messege: true,
+      data: listOrderNotSeem,
+      userInfor: inforUser,
+    })
+  } catch (error) {
+    res.status(401).json({
+      messege: error,
     })
   }
 }
